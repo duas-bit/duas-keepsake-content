@@ -563,6 +563,41 @@ a:focus-visible {
     transition-duration: .01ms !important;
   }
 }
+   
+/* Gallery section heading layout */
+.section-title-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.section-title-row .eyebrow {
+  margin: 0;
+  flex-shrink: 0;
+  font-family: "Inknut Antiqua", serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.section-title-row .section-title {
+  margin: 0;
+  font-family: "Road Race Stamp", sans-serif;
+  font-size: clamp(1.7rem, 3.5vw, 2.8rem);
+  font-weight: normal;
+  line-height: 1.15;
+}
+
+.section-heading .section-description {
+  margin-top: 0;
+  font-family: "Inknut Antiqua", serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
 </style>
 </head>
 
@@ -579,10 +614,7 @@ a:focus-visible {
   </a>
 
   <nav class="site-nav" aria-label="Main navigation">
-    <a href="https://duaskeepsake.myportfolio.com/content">Home</a>
-    <a href="https://duaskeepsake.myportfolio.com/services">Services</a>
-    <a href="https://duaskeepsake.myportfolio.com/catalogue">Catalogue</a>
-    <a href="https://duaskeepsake.myportfolio.com/about">About</a>
+    <a href="https://duaskeepsake.myportfolio.com/catalogue">Back To Website</a>
     <a href="https://duaskeepsake.myportfolio.com/contact">Contact</a>
   </nav>
 </header>
@@ -819,17 +851,23 @@ VIDEO_GALLERIES.forEach((gallery) => {
   const heading = document.createElement("div");
   heading.className = "section-heading";
 
-  const eyebrow = document.createElement("p");
+  const titleRow = document.createElement("div");
+  titleRow.className = "section-title-row";
+
+  const eyebrow = document.createElement("span");
   eyebrow.className = "eyebrow";
-  eyebrow.textContent = `${gallery.number} / ${gallery.title}`;
+  eyebrow.textContent = `${gallery.number} /`;
 
   const title = document.createElement("h2");
+  title.className = "section-title";
   title.textContent = gallery.title;
 
   const description = document.createElement("p");
+  description.className = "section-description";
   description.textContent = gallery.description || "";
 
-  heading.append(eyebrow, title, description);
+  titleRow.append(eyebrow, title);
+  heading.append(titleRow, description);
   section.appendChild(heading);
 
   if (!gallery.videos || gallery.videos.length === 0) {
