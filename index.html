@@ -1,0 +1,972 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FFFFFF">
+
+<title>Content Creation | Dua's Keepsake</title>
+<meta name="description" content="A curated collection of wedding and event content by Dua's Keepsake.">
+
+<style>
+/* =========================================
+   DUA'S KEEPSAKE — BRAND SETTINGS
+   Change colours and fonts here.
+========================================= */
+
+:root {
+  --white: #FFFFFF;
+  --yellow: #FFBC4F;
+  --pale-yellow: #FFD182;
+  --black: #0E0E0E;
+  --blackest: #000000;
+  --dark-grey: #818181;
+  --light-grey: #B3B3B4;
+
+  --page-width: 1440px;
+  --page-padding: clamp(18px, 4vw, 64px);
+  --gallery-gap: 14px;
+}
+
+/* Add your licensed font files to /fonts.
+   If you do not have the files yet, fallbacks will work. */
+
+@font-face {
+  font-family: "Road Race Stamp";
+  src: url("fonts/road-race-stamp.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TAN Mon Cheri";
+  src: url("fonts/tan-mon-cheri.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--black);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+img, video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--blackest);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px var(--page-padding);
+  background: var(--white);
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.brand {
+  text-decoration: none;
+  font-family: "Road Race Stamp", Arial, sans-serif;
+  font-size: clamp(17px, 2vw, 25px);
+  letter-spacing: .04em;
+  line-height: 1.2;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: clamp(12px, 2.2vw, 30px);
+}
+
+.site-nav a {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--yellow);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 5px;
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+  padding: clamp(65px, 10vw, 140px) var(--page-padding);
+  background: var(--yellow);
+}
+
+.hero-inner {
+  max-width: var(--page-width);
+  margin: auto;
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.hero h1 {
+  max-width: 900px;
+  margin: 0;
+  font-family: "Road Race Stamp", Arial, sans-serif;
+  font-size: clamp(42px, 8vw, 100px);
+  font-weight: normal;
+  line-height: 1.03;
+}
+
+.hero-description {
+  max-width: 540px;
+  margin: 24px 0 0;
+  font-size: clamp(14px, 1.5vw, 17px);
+}
+
+.scroll-cue {
+  display: inline-block;
+  margin-top: 35px;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 5px;
+}
+
+/* =========================================
+   GALLERY SECTIONS
+========================================= */
+
+main {
+  max-width: var(--page-width);
+  margin: auto;
+}
+
+.gallery-section {
+  padding: clamp(50px, 7vw, 90px) 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.section-heading {
+  padding: 0 var(--page-padding);
+  margin-bottom: 24px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-family: "Road Race Stamp", Arial, sans-serif;
+  font-size: clamp(29px, 4vw, 48px);
+  line-height: 1.15;
+  font-weight: normal;
+}
+
+.section-heading p {
+  max-width: 600px;
+  margin: 10px 0 0;
+  color: var(--dark-grey);
+  font-size: 14px;
+}
+
+/* Each gallery scrolls horizontally.
+   On mobile, visitors can swipe.
+   On desktop, visitors can scroll or use arrows. */
+
+.carousel-wrap {
+  position: relative;
+}
+
+.carousel {
+  display: flex;
+  gap: var(--gallery-gap);
+  overflow-x: auto;
+  padding: 0 var(--page-padding) 12px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--yellow) #eeeeee;
+}
+
+.carousel::-webkit-scrollbar {
+  height: 5px;
+}
+
+.carousel::-webkit-scrollbar-track {
+  background: #eeeeee;
+}
+
+.carousel::-webkit-scrollbar-thumb {
+  background: var(--yellow);
+}
+
+.video-card {
+  flex: 0 0 clamp(220px, 28vw, 340px);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.video-frame {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  background: #eeeeee;
+  overflow: hidden;
+}
+
+.video-frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--blackest);
+}
+
+.video-card.landscape {
+  flex-basis: clamp(280px, 48vw, 600px);
+}
+
+.video-card.landscape .video-frame {
+  aspect-ratio: 16 / 9;
+}
+
+.video-caption {
+  padding: 11px 2px 0;
+}
+
+.video-caption:empty {
+  display: none;
+}
+
+.caption-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.caption-description {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #444444;
+  white-space: pre-line;
+}
+
+.creator-credit {
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: var(--dark-grey);
+}
+
+.creator-credit a {
+  text-underline-offset: 3px;
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px var(--page-padding) 0;
+}
+
+.carousel-controls button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--light-grey);
+  background: var(--white);
+  color: var(--black);
+  cursor: pointer;
+}
+
+.carousel-controls button:hover {
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.carousel-controls button:focus-visible,
+.site-nav a:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--black);
+  outline-offset: 4px;
+}
+
+.empty-gallery {
+  margin: 0 var(--page-padding);
+  padding: 25px;
+  background: #f5f5f5;
+  color: var(--dark-grey);
+  font-size: 13px;
+}
+
+/* =========================================
+   CINEMATIC STILLS
+   Seamless grid: NO gaps between photos.
+========================================= */
+
+.stills-section {
+  padding: clamp(50px, 7vw, 90px) 0 0;
+}
+
+.stills-section .section-heading {
+  margin-bottom: 28px;
+}
+
+.stills-grid {
+  columns: 3;
+  column-gap: 0;
+  line-height: 0;
+}
+
+.still-item {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  break-inside: avoid;
+  background: var(--white);
+  cursor: zoom-in;
+  overflow: hidden;
+}
+
+.still-item img {
+  width: 100%;
+  height: auto;
+  transition: transform .35s ease;
+}
+
+.still-item:hover img {
+  transform: scale(1.025);
+}
+
+.stills-empty {
+  padding: 30px var(--page-padding);
+  color: var(--dark-grey);
+  font-size: 13px;
+}
+
+/* Image lightbox */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, .94);
+}
+
+.lightbox.open {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 95vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.lightbox button {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  border: 0;
+  background: transparent;
+  color: var(--white);
+  font-size: 32px;
+  cursor: pointer;
+}
+
+/* =========================================
+   CLOSING CTA
+========================================= */
+
+.closing {
+  margin-top: 0;
+  padding: clamp(65px, 9vw, 115px) var(--page-padding);
+  text-align: center;
+  background: var(--pale-yellow);
+}
+
+.closing h2 {
+  margin: 0;
+  font-family: "Road Race Stamp", Arial, sans-serif;
+  font-size: clamp(36px, 6vw, 68px);
+  font-weight: normal;
+  line-height: 1.15;
+}
+
+.closing p {
+  max-width: 500px;
+  margin: 15px auto 25px;
+  font-size: 14px;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 13px 22px;
+  background: var(--black);
+  color: var(--white);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  text-decoration: none;
+}
+
+.cta-button:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+.site-footer {
+  padding: 22px var(--page-padding);
+  text-align: center;
+  font-size: 10px;
+  color: var(--dark-grey);
+  letter-spacing: .08em;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .site-nav {
+    justify-content: flex-start;
+    gap: 16px;
+  }
+
+  .site-nav a {
+    font-size: 9px;
+  }
+
+  .video-card {
+    flex-basis: min(76vw, 310px);
+  }
+
+  .video-card.landscape {
+    flex-basis: 85vw;
+  }
+
+  .stills-grid {
+    columns: 2;
+  }
+
+  .carousel-controls {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html, .carousel {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =======================================
+     HEADER
+     Change links to your actual site URLs.
+======================================= -->
+
+<header class="site-header">
+  <a class="brand" href="https://duaskeepsake.myportfolio.com/content">
+    DUA'S KEEPSAKE
+  </a>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="https://duaskeepsake.myportfolio.com/content">Home</a>
+    <a href="https://duaskeepsake.myportfolio.com/services">Services</a>
+    <a href="https://duaskeepsake.myportfolio.com/catalogue">Catalogue</a>
+    <a href="https://duaskeepsake.myportfolio.com/about">About</a>
+    <a href="https://duaskeepsake.myportfolio.com/contact">Contact</a>
+  </nav>
+</header>
+
+<!-- =======================================
+     HERO
+======================================= -->
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Content Creation</p>
+    <h1>The work, as it unfolds.</h1>
+
+    <p class="hero-description">
+      A collection of little details, fleeting feelings,
+      and stories worth returning to.
+    </p>
+
+    <a class="scroll-cue" href="#clip-galleries">
+      Explore the collection ↓
+    </a>
+  </div>
+</section>
+
+<main id="portfolio">
+
+  <!-- Gallery sections are inserted here by JavaScript. -->
+
+  <div id="video-galleries"></div>
+
+  <!-- =====================================
+       CINEMATIC STILLS
+       Gapless masonry gallery.
+  ====================================== -->
+
+  <section class="stills-section" id="cinematic-stills">
+    <div class="section-heading">
+      <p class="eyebrow">06 / Cinematic Stills</p>
+      <h2>Frames worth keeping.</h2>
+      <p>
+        A closer look at the details, expressions, and
+        fleeting scenes that deserve to be remembered.
+      </p>
+    </div>
+
+    <div class="stills-grid" id="stills-grid"></div>
+    <div class="stills-empty" id="stills-empty" hidden>
+      Add your still images to the CINEMATIC STILLS list in the code.
+    </div>
+  </section>
+
+</main>
+
+<!-- =======================================
+     CLOSING CTA
+======================================= -->
+
+<section class="closing" id="contact">
+  <p class="eyebrow">Have something in mind?</p>
+  <h2>Let's make it yours.</h2>
+  <p>
+    Tell me a little about what you're looking for
+    and let's take it from there.
+  </p>
+
+  <a class="cta-button"
+     href="https://duaskeepsake.myportfolio.com/contact">
+    Send my inquiry →
+  </a>
+</section>
+
+<footer class="site-footer">
+  DUA'S KEEPSAKE · CONTENT CREATION
+</footer>
+
+<!-- Photo enlargement overlay -->
+
+<div class="lightbox" id="lightbox" role="dialog"
+     aria-modal="true" aria-label="Enlarged photograph">
+  <button id="lightbox-close" type="button"
+          aria-label="Close enlarged photograph">×</button>
+  <img id="lightbox-image" src="" alt="">
+</div>
+
+<script>
+/* =========================================================
+   EDIT YOUR PORTFOLIO CONTENT HERE
+
+   THIS IS THE ONLY SECTION YOU NEED TO EDIT WHEN ADDING
+   OR REPLACING VIDEOS AND PHOTOS.
+
+   Paths are relative to index.html.
+   Example: media/videos/my-video.mp4
+
+   Optional fields can be omitted or left as "".
+========================================================= */
+
+const VIDEO_GALLERIES = [
+
+  {
+    id: "clip-galleries",
+    number: "01",
+    title: "Clip Galleries",
+    description: "Little snippets of the day, just as they happened.",
+    videos: [
+      {
+        src: "media/videos/clip-gallery-01.mp4",
+        title: "A little preview of the day",
+        caption: "",
+        credit: "",
+        creditUrl: "",
+        orientation: "portrait"
+      }
+
+      // Add another clip by copying the object above
+      // and placing a comma between the objects.
+    ]
+  },
+
+  {
+    id: "unseen-moments",
+    number: "02",
+    title: "Unseen Moments Films",
+    description: "The in-between details that make the story personal.",
+    videos: [
+      {
+        src: "media/videos/unseen-moments-01.mp4",
+        title: "",
+        caption: "",
+        credit: "",
+        creditUrl: "",
+        orientation: "portrait"
+      }
+    ]
+  },
+
+  {
+    id: "highlight-reels",
+    number: "03",
+    title: "Highlight Reels",
+    description: "The energy, the people, and the scenes you'll revisit.",
+    videos: [
+      {
+        src: "media/videos/highlight-reel-01.mp4",
+        title: "",
+        caption: "",
+        credit: "",
+        creditUrl: "",
+        orientation: "portrait"
+      }
+    ]
+  },
+
+  {
+    id: "time-capsules",
+    number: "04",
+    title: "Time Capsules",
+    description: "Memories with a nostalgic, camcorder-inspired feel.",
+    videos: [
+      {
+        src: "media/videos/time-capsule-01.mp4",
+        title: "",
+        caption: "",
+        credit: "",
+        creditUrl: "",
+        orientation: "portrait"
+      }
+    ]
+  },
+
+  {
+    id: "tiktok-trends",
+    number: "05",
+    title: "TikTok Trends",
+    description: "Playful edits, trends, and social-first storytelling.",
+    videos: [
+      {
+        src: "media/videos/tiktok-trend-01.mp4",
+        title: "",
+        caption: "",
+        credit: "",
+        creditUrl: "",
+        orientation: "portrait"
+      }
+    ]
+  }
+
+];
+
+
+/* =========================================================
+   CINEMATIC STILLS
+
+   Use JPG, PNG, or WebP image files.
+   Add or remove objects as needed.
+========================================================= */
+
+const CINEMATIC_STILLS = [
+  {
+    src: "media/stills/still-01.jpg",
+    alt: "Cinematic still 1"
+  },
+  {
+    src: "media/stills/still-02.jpg",
+    alt: "Cinematic still 2"
+  },
+  {
+    src: "media/stills/still-03.jpg",
+    alt: "Cinematic still 3"
+  }
+];
+
+
+/* =========================================================
+   RENDER VIDEO GALLERIES
+   Do not edit below this line unless changing the design.
+========================================================= */
+
+const galleryRoot = document.getElementById("video-galleries");
+
+VIDEO_GALLERIES.forEach((gallery) => {
+  const section = document.createElement("section");
+  section.className = "gallery-section";
+  section.id = gallery.id;
+
+  const heading = document.createElement("div");
+  heading.className = "section-heading";
+
+  const eyebrow = document.createElement("p");
+  eyebrow.className = "eyebrow";
+  eyebrow.textContent = `${gallery.number} / ${gallery.title}`;
+
+  const title = document.createElement("h2");
+  title.textContent = gallery.title;
+
+  const description = document.createElement("p");
+  description.textContent = gallery.description || "";
+
+  heading.append(eyebrow, title, description);
+  section.appendChild(heading);
+
+  if (!gallery.videos || gallery.videos.length === 0) {
+    const empty = document.createElement("p");
+    empty.className = "empty-gallery";
+    empty.textContent = "More from this collection coming soon.";
+    section.appendChild(empty);
+    galleryRoot.appendChild(section);
+    return;
+  }
+
+  const wrap = document.createElement("div");
+  wrap.className = "carousel-wrap";
+
+  const carousel = document.createElement("div");
+  carousel.className = "carousel";
+  carousel.id = `${gallery.id}-carousel`;
+  carousel.setAttribute("aria-label", `${gallery.title} videos`);
+
+  gallery.videos.forEach((item) => {
+    const card = document.createElement("article");
+    card.className = "video-card";
+
+    if (item.orientation === "landscape") {
+      card.classList.add("landscape");
+    }
+
+    const frame = document.createElement("div");
+    frame.className = "video-frame";
+
+    const video = document.createElement("video");
+    video.controls = true;
+    video.playsInline = true;
+    video.preload = "metadata";
+    video.setAttribute("aria-label", item.title || gallery.title);
+
+    if (item.poster) {
+      video.poster = item.poster;
+    }
+
+    const source = document.createElement("source");
+    source.src = item.src;
+    source.type = "video/mp4";
+    video.appendChild(source);
+
+    frame.appendChild(video);
+    card.appendChild(frame);
+
+    const caption = document.createElement("div");
+    caption.className = "video-caption";
+
+    if (item.title) {
+      const captionTitle = document.createElement("p");
+      captionTitle.className = "caption-title";
+      captionTitle.textContent = item.title;
+      caption.appendChild(captionTitle);
+    }
+
+    if (item.caption) {
+      const captionText = document.createElement("p");
+      captionText.className = "caption-description";
+      captionText.textContent = item.caption;
+      caption.appendChild(captionText);
+    }
+
+    if (item.credit) {
+      const credit = document.createElement("p");
+      credit.className = "creator-credit";
+
+      if (item.creditUrl) {
+        const link = document.createElement("a");
+        link.href = item.creditUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = item.credit;
+        credit.appendChild(link);
+      } else {
+        credit.textContent = item.credit;
+      }
+
+      caption.appendChild(credit);
+    }
+
+    card.appendChild(caption);
+    carousel.appendChild(card);
+  });
+
+  wrap.appendChild(carousel);
+
+  if (gallery.videos.length > 1) {
+    const controls = document.createElement("div");
+    controls.className = "carousel-controls";
+
+    const previous = document.createElement("button");
+    previous.type = "button";
+    previous.textContent = "←";
+    previous.setAttribute("aria-label", `Previous ${gallery.title} videos`);
+    previous.addEventListener("click", () => {
+      carousel.scrollBy({
+        left: -carousel.clientWidth * 0.75,
+        behavior: "smooth"
+      });
+    });
+
+    const next = document.createElement("button");
+    next.type = "button";
+    next.textContent = "→";
+    next.setAttribute("aria-label", `Next ${gallery.title} videos`);
+    next.addEventListener("click", () => {
+      carousel.scrollBy({
+        left: carousel.clientWidth * 0.75,
+        behavior: "smooth"
+      });
+    });
+
+    controls.append(previous, next);
+    wrap.appendChild(controls);
+  }
+
+  section.appendChild(wrap);
+  galleryRoot.appendChild(section);
+});
+
+
+/* =========================================================
+   RENDER SEAMLESS CINEMATIC STILLS
+========================================================= */
+
+const stillsGrid = document.getElementById("stills-grid");
+const stillsEmpty = document.getElementById("stills-empty");
+
+if (CINEMATIC_STILLS.length === 0) {
+  stillsEmpty.hidden = false;
+}
+
+CINEMATIC_STILLS.forEach((item) => {
+  const button = document.createElement("button");
+  button.className = "still-item";
+  button.type = "button";
+  button.setAttribute("aria-label", `Enlarge ${item.alt || "photo"}`);
+
+  const img = document.createElement("img");
+  img.src = item.src;
+  img.alt = item.alt || "";
+  img.loading = "lazy";
+  img.decoding = "async";
+
+  button.appendChild(img);
+  stillsGrid.appendChild(button);
+
+  button.addEventListener("click", () => {
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightbox-image");
+
+    lightboxImage.src = item.src;
+    lightboxImage.alt = item.alt || "";
+    lightbox.classList.add("open");
+    document.body.style.overflow = "hidden";
+
+    document.getElementById("lightbox-close").focus();
+  });
+});
+
+
+/* =========================================================
+   CLOSE IMAGE LIGHTBOX
+========================================================= */
+
+function closeLightbox() {
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImage = document.getElementById("lightbox-image");
+
+  lightbox.classList.remove("open");
+  lightboxImage.src = "";
+  document.body.style.overflow = "";
+}
+
+document.getElementById("lightbox-close").addEventListener(
+  "click", closeLightbox
+);
+
+document.getElementById("lightbox").addEventListener("click", (event) => {
+  if (event.target.id === "lightbox") {
+    closeLightbox();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeLightbox();
+  }
+});
+</script>
+
+</body>
+</html>
