@@ -448,6 +448,7 @@ a:focus-visible {
 }
 
 .still-item {
+  position: relative;
   display: block;
   width: 100%;
   margin: 0;
@@ -457,9 +458,12 @@ a:focus-visible {
   background: var(--white);
   cursor: zoom-in;
   overflow: hidden;
+  line-height: normal;
+  text-align: left;
 }
 
 .still-item img {
+  display: block;
   width: 100%;
   height: auto;
   transition: transform .35s ease;
@@ -467,6 +471,39 @@ a:focus-visible {
 
 .still-item:hover img {
   transform: scale(1.025);
+}
+
+.still-caption {
+  position: absolute;
+  right: 12px;
+  bottom: 14px;
+  left: 12px;
+  z-index: 1;
+  color: #FFFFFF;
+  font-family: "Inknut Antiqua", serif;
+  font-size: clamp(10px, 1.1vw, 14px);
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, .85),
+    0 2px 8px rgba(0, 0, 0, .6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+
+.still-item:hover .still-caption,
+.still-item:focus-visible .still-caption,
+.still-item.caption-visible .still-caption {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .still-item img,
+  .still-caption {
+    transition: none;
+  }
 }
 
 .stills-empty {
@@ -897,16 +934,54 @@ const VIDEO_GALLERIES = [
 const CINEMATIC_STILLS = [
   {
     src: "media/stills/still-01.jpg",
-    alt: "Cinematic still 1"
+    alt: "groom's entrance at a pre-wedding event",
+    caption: "digicam edit"
   },
   {
     src: "media/stills/still-02.jpg",
-    alt: "Cinematic still 2"
+    alt: "bride and bridesmaids",
+    caption: "digicam edit"
   },
   {
     src: "media/stills/still-03.jpg",
-    alt: "Cinematic still 3"
-  }
+    alt: "cultural custom at a pre-wedding event",
+    caption: "digicam edit"
+  },
+   {
+    src: "media/stills/still-04.jpg",
+    alt: "music at a pre-wedding event",
+    caption: "digicam edit"
+  },
+   {
+    src: "media/stills/still-05.jpg",
+    alt: "guests taking a selfie",
+    caption: "digicam edit"
+  },
+   {
+    src: "media/stills/still-06.jpg",
+    alt: "bride's entrance at the wedding",
+    caption: "digicam edit"
+  },
+   {
+    src: "media/stills/still-07.jpg",
+    alt: "in-laws embracing each other",
+    caption: "digicam edit"
+  },
+   {
+    src: "media/stills/still-08.jpg",
+    alt: "bride arriving at the venue",
+    caption: "disposable film edit"
+  },
+   {
+    src: "media/stills/still-09.jpg",
+    alt: "groom's entrance at a pre-wedding event",
+    caption: "disposable film edit"
+  },
+   {
+    src: "media/stills/still-10.jpg",
+    alt: "bride and groom on the stage",
+    caption: "disposable film edit"
+  },
 ];
 
 
@@ -1073,6 +1148,12 @@ VIDEO_GALLERIES.forEach((gallery) => {
 const stillsGrid = document.getElementById("stills-grid");
 const stillsEmpty = document.getElementById("stills-empty");
 
+const canHover = window.matchMedia(
+  "(hover: hover) and (pointer: fine)"
+).matches;
+
+let activeCaptionButton = null;
+
 if (CINEMATIC_STILLS.length === 0) {
   stillsEmpty.hidden = false;
 }
@@ -1081,7 +1162,6 @@ CINEMATIC_STILLS.forEach((item) => {
   const button = document.createElement("button");
   button.className = "still-item";
   button.type = "button";
-  button.setAttribute("aria-label", `Enlarge ${item.alt || "photo"}`);
 
   const img = document.createElement("img");
   img.src = item.src;
@@ -1090,9 +1170,47 @@ CINEMATIC_STILLS.forEach((item) => {
   img.decoding = "async";
 
   button.appendChild(img);
+
+  if (item.caption) {
+    const caption = document.createElement("span");
+    caption.className = "still-caption";
+    caption.textContent = item.caption;
+
+    button.appendChild(caption);
+
+    button.setAttribute(
+      "aria-label",
+      `${item.alt || "Photo"}. Caption: ${item.caption}. ${
+        canHover
+          ? "Click to enlarge."
+          : "Tap once to reveal the caption and again to enlarge."
+      }`
+    );
+  } else {
+    button.setAttribute(
+      "aria-label",
+      `Enlarge ${item.alt || "photo"}`
+    );
+  }
+
   stillsGrid.appendChild(button);
 
   button.addEventListener("click", () => {
+    if (!canHover && item.caption) {
+      if (!button.classList.contains("caption-visible")) {
+        if (activeCaptionButton) {
+          activeCaptionButton.classList.remove("caption-visible");
+        }
+
+        button.classList.add("caption-visible");
+        activeCaptionButton = button;
+        return;
+      }
+
+      button.classList.remove("caption-visible");
+      activeCaptionButton = null;
+    }
+
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = document.getElementById("lightbox-image");
 
