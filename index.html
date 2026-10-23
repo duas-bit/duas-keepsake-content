@@ -428,9 +428,10 @@ a:focus-visible {
   font-size: 13px;
 }
 
+
 /* =========================================
    CINEMATIC STILLS
-   Seamless grid: NO gaps between photos.
+   Horizontal carousel with no gaps.
 ========================================= */
 
 .stills-section {
@@ -442,19 +443,39 @@ a:focus-visible {
 }
 
 .stills-grid {
-  columns: 3;
-  column-gap: 0;
+  display: flex;
+  width: 100%;
+  gap: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--yellow) #eeeeee;
   line-height: 0;
+}
+
+.stills-grid::-webkit-scrollbar {
+  height: 5px;
+}
+
+.stills-grid::-webkit-scrollbar-track {
+  background: #eeeeee;
+}
+
+.stills-grid::-webkit-scrollbar-thumb {
+  background: var(--yellow);
 }
 
 .still-item {
   position: relative;
   display: block;
-  width: 100%;
+  flex: 0 0 33.333333%;
+  min-width: 0;
   margin: 0;
   padding: 0;
   border: 0;
-  break-inside: avoid;
+  scroll-snap-align: start;
   background: var(--white);
   cursor: zoom-in;
   overflow: hidden;
@@ -499,9 +520,55 @@ a:focus-visible {
   opacity: 1;
 }
 
+/* Stills-only arrow controls */
+.stills-carousel-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px var(--page-padding) 0;
+}
+
+.stills-carousel-controls button {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: 1px solid var(--light-grey);
+  background: var(--white);
+  color: var(--black);
+  cursor: pointer;
+}
+
+.stills-carousel-controls button:hover {
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.stills-carousel-controls button:focus-visible {
+  outline: 2px solid var(--black);
+  outline-offset: 4px;
+}
+
+.stills-empty {
+  padding: 30px var(--page-padding);
+  color: var(--dark-grey);
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .still-item {
+    flex-basis: 50%;
+  }
+
+  .stills-carousel-controls {
+    display: flex;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .stills-grid,
   .still-item img,
   .still-caption {
+    scroll-behavior: auto;
     transition: none;
   }
 }
@@ -684,6 +751,22 @@ a:focus-visible {
   display: block;
 }
 
+   
+/* =========================================
+   DISCOURAGE CASUAL MEDIA SAVING
+========================================= */
+
+img,
+video {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+img {
+  -webkit-touch-callout: none;
+}
+
 </style>
 </head>
 
@@ -771,7 +854,16 @@ a:focus-visible {
     </p>
   </div>
 
-  <div class="stills-grid" id="stills-grid"></div>
+  <div class="stills-grid" id="stills-grid"
+     aria-label="Cinematic stills"></div>
+
+<div class="stills-carousel-controls"
+     aria-label="Cinematic stills navigation">
+  <button id="stills-previous" type="button"
+          aria-label="Previous cinematic stills">←</button>
+  <button id="stills-next" type="button"
+          aria-label="Next cinematic stills">→</button>
+</div>
 
   <div class="stills-empty" id="stills-empty" hidden>
     Add your still images to the CINEMATIC STILLS list in the code.
@@ -1141,12 +1233,15 @@ VIDEO_GALLERIES.forEach((gallery) => {
 });
 
 
+
 /* =========================================================
-   RENDER SEAMLESS CINEMATIC STILLS
+   RENDER CINEMATIC STILLS CAROUSEL
 ========================================================= */
 
 const stillsGrid = document.getElementById("stills-grid");
 const stillsEmpty = document.getElementById("stills-empty");
+const stillsPrevious = document.getElementById("stills-previous");
+const stillsNext = document.getElementById("stills-next");
 
 const canHover = window.matchMedia(
   "(hover: hover) and (pointer: fine)"
@@ -1156,9 +1251,11 @@ let activeCaptionButton = null;
 
 if (CINEMATIC_STILLS.length === 0) {
   stillsEmpty.hidden = false;
+  stillsPrevious.hidden = true;
+  stillsNext.hidden = true;
 }
 
-CINEMATIC_STILLS.forEach((item) => {
+CINEMATIC_STILLS.forEach((item, index) => {
   const button = document.createElement("button");
   button.className = "still-item";
   button.type = "button";
@@ -1175,21 +1272,20 @@ CINEMATIC_STILLS.forEach((item) => {
     const caption = document.createElement("span");
     caption.className = "still-caption";
     caption.textContent = item.caption;
-
     button.appendChild(caption);
 
     button.setAttribute(
       "aria-label",
-      `${item.alt || "Photo"}. Caption: ${item.caption}. ${
-        canHover
-          ? "Click to enlarge."
-          : "Tap once to reveal the caption and again to enlarge."
-      }`
+      `${item.alt || `Photo ${index + 1}`}. ` +
+      `Caption: ${item.caption}. ` +
+      (canHover
+        ? "Click to enlarge."
+        : "Tap once to reveal the caption and again to enlarge.")
     );
   } else {
     button.setAttribute(
       "aria-label",
-      `Enlarge ${item.alt || "photo"}`
+      `Enlarge ${item.alt || `photo ${index + 1}`}`
     );
   }
 
@@ -1222,6 +1318,27 @@ CINEMATIC_STILLS.forEach((item) => {
     document.getElementById("lightbox-close").focus();
   });
 });
+
+
+/* =========================================================
+   CINEMATIC STILLS ARROWS
+========================================================= */
+
+function scrollStills(direction) {
+  stillsGrid.scrollBy({
+    left: direction * stillsGrid.clientWidth * 0.8,
+    behavior: "smooth"
+  });
+}
+
+stillsPrevious.addEventListener("click", () => {
+  scrollStills(-1);
+});
+
+stillsNext.addEventListener("click", () => {
+  scrollStills(1);
+});
+
 
 
 /* =========================================================
@@ -1278,6 +1395,55 @@ if (collectionMenu && collectionButton && collectionDropdown) {
   });
 }
    
+</script>
+
+<script>
+/* =========================================
+   MEDIA DOWNLOAD DETERRENTS
+========================================= */
+
+// Discourage right-click saving on images and videos.
+document.addEventListener("contextmenu", function (event) {
+  if (event.target.closest("img, video")) {
+    event.preventDefault();
+  }
+});
+
+// Prevent images and videos from being dragged off the page.
+document.addEventListener("dragstart", function (event) {
+  if (event.target.closest("img, video")) {
+    event.preventDefault();
+  }
+});
+
+// Hide the download option on supported HTML video players.
+function protectVideoDownloads(video) {
+  video.setAttribute("controlsList", "nodownload");
+}
+
+document.querySelectorAll("video").forEach(protectVideoDownloads);
+
+// Also handle videos added to the page dynamically.
+const videoProtectionObserver = new MutationObserver(function (mutations) {
+  mutations.forEach(function (mutation) {
+    mutation.addedNodes.forEach(function (node) {
+      if (node.nodeType !== 1) return;
+
+      if (node.matches && node.matches("video")) {
+        protectVideoDownloads(node);
+      }
+
+      if (node.querySelectorAll) {
+        node.querySelectorAll("video").forEach(protectVideoDownloads);
+      }
+    });
+  });
+});
+
+videoProtectionObserver.observe(document.documentElement, {
+  childList: true,
+  subtree: true
+});
 </script>
 
 </body>
