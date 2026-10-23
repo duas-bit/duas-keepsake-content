@@ -467,11 +467,13 @@ a:focus-visible {
   background: var(--yellow);
 }
 
+
 .still-item {
   position: relative;
   display: block;
   flex: 0 0 33.333333%;
   min-width: 0;
+  height: 360px;
   margin: 0;
   padding: 0;
   border: 0;
@@ -486,7 +488,9 @@ a:focus-visible {
 .still-item img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   transition: transform .35s ease;
 }
 
@@ -526,6 +530,7 @@ a:focus-visible {
   justify-content: flex-end;
   gap: 8px;
   padding: 8px var(--page-padding) 0;
+  margin-bottom: 60px;
 }
 
 .stills-carousel-controls button {
@@ -557,6 +562,7 @@ a:focus-visible {
 @media (max-width: 700px) {
   .still-item {
     flex-basis: 50%;
+    height: 260px;
   }
 
   .stills-carousel-controls {
