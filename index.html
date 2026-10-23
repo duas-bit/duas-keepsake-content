@@ -144,8 +144,8 @@ button {
   justify-content: space-between;
   gap: 24px;
   padding: 18px var(--page-padding);
-  background: var(--white);
-  border-bottom: 1px solid #e8e8e8;
+  background: #000000;
+  border-bottom: 1px solid #000000;
 }
 
 .brand {
@@ -155,6 +155,7 @@ button {
   letter-spacing: .025em;
   line-height: 1.3;
   white-space: nowrap;
+  color: #FFBC4F;
 }
 
 .site-nav {
@@ -170,6 +171,7 @@ button {
   text-transform: uppercase;
   letter-spacing: .14em;
   text-decoration: none;
+  color: #FFFFFF;
 }
 
 .site-nav a:hover {
@@ -191,11 +193,12 @@ button {
 .hero-inner {
   max-width: var(--page-width);
   margin: auto;
+  text-align: center;
 }
 
 .hero-description {
   max-width: 650px;
-  margin: 0;
+  margin: 0 auto;
   font-family: "Inknut Antiqua", serif;
   font-size: clamp(12px, 1.15vw, 15px);
   font-weight: 400;
@@ -274,6 +277,7 @@ main {
 
 .gallery-section {
   padding: clamp(50px, 7vw, 90px) 0;
+  padding-bottom: clamp(35px, 4vw, 55px);
   border-bottom: 1px solid #e8e8e8;
 }
 
@@ -392,7 +396,7 @@ main {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-  padding: 12px var(--page-padding) 0;
+  padding: 6px var(--page-padding) 0;
 }
 
 .carousel-controls button {
@@ -519,7 +523,7 @@ a:focus-visible {
 .closing h2 {
   margin: 0;
   font-family: "Road Race Stamp", Arial, sans-serif;
-  font-size: clamp(36px, 6vw, 68px);
+  font-size: clamp(18px, 3vw, 34px);
   font-weight: normal;
   line-height: 1.15;
 }
@@ -539,6 +543,8 @@ a:focus-visible {
   text-transform: uppercase;
   letter-spacing: .14em;
   text-decoration: none;
+  border-radius: 999px;
+  transition: background 180ms ease, color 180ms ease;
 }
 
 .cta-button:hover {
@@ -652,7 +658,7 @@ a:focus-visible {
 ======================================= -->
 
 <header class="site-header">
-  <a class="brand" href="https://duaskeepsake.myportfolio.com/content">
+  <a class="brand" href="https://duas-bit.github.io/duas-keepsake-content/">
     Dua's Keepsake | Content Creation
   </a>
 
